@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="2.munit-before-after-test-suite.xml" />
+	<munit:before-suite name="BeforeTestSuit" doc:id="9de93147-02a8-4d1b-81a0-497c453e17d4" >
+		<logger level="INFO" doc:name="Log before test suit" doc:id="f3df971d-a84c-4c9d-ab76-dfbafb58615e" message='#["LOG BEFORE TEST SUIT"]'/>
+	</munit:before-suite>
+	<munit:after-suite name="AfterTestSuit" doc:id="939b8704-d664-4595-99ec-25ac3d0ccbaa" >
+		<logger level="INFO" doc:name="Log AFTER TEST SUIT" doc:id="303c38a3-0dd0-4d28-952d-1a2d86cffa74" message='#["LOG AFTER TEST SUIT"]'/>
+	</munit:after-suite>
+	<munit:test name="ValidateFeeGreaterThan0Testcase" doc:id="6ed8a3f6-3855-455a-ae21-002e54518cd1" description="Test" expectedErrorType="ANY">
+		<munit:behavior >
+			<set-payload value='#[{&#10;	"name": "ABC",&#10;	"hospital": "XYZ",&#10;	"category": "dermatology",&#10;	"availability": "9 AM - 6 PM",&#10;	"Fees": "500"&#10;	&#10;}]' doc:name="Set Payload" doc:id="42cc5039-9dc4-45e4-8676-b4191ef00474" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getmedicalappointment" doc:id="d67c4a3b-d548-4918-add1-95c48385407a" name="getmedicalappointment"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that fee is greater than 0" doc:id="e0745541-dd43-4112-a2e6-74f3c9eda051" is="#[MunitTools::greaterThan(0)]" expression="#[payload.fee]"/>
+			<logger level="INFO" doc:name="Log FeeGreaterThan0" doc:id="109ec470-4d49-4f29-9fbd-653a3d1683e0" message="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="ValidatePayloadNotNullSuccessTestCase" doc:id="50afb96b-81d1-4e0f-b252-eeb12baa5db4" >
+		<munit:behavior>
+			<set-payload value='#[{&#10;	"name": "ABC",&#10;	"hospital": "XYZ",&#10;	"category": "dermatology",&#10;	"availability": "9 AM - 6 PM",&#10;	"Fees": "500"&#10;	&#10;}]' doc:name="Set Payload" doc:id="388d727e-e6f7-467d-bba2-d7cf47a5c8b2" />
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getmedicalappointment" doc:id="4d2fd3a7-f4d0-40ce-b7aa-3433a5792530" name="getmedicalappointment"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that payload not null" doc:id="246a3527-b847-4f2a-9acb-48f131410c3b" is="#[MunitTools::notNullValue()]" expression="#[payload]" message='#["Payload is Null"]'/>
+			<logger level="INFO" doc:name="Log Validate PayloadNotNullSuccess" doc:id="a1c93391-50c4-4b22-880d-e3b08590fa84" message="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
