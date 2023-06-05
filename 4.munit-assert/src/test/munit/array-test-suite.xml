@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="   http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd   http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd   http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="array-test-suite.xml"/>
+	<munit:test description="Test" doc:id="f2bae0b5-f0a0-467f-9115-cf28ca643ef8" name="payloadcontainsmulsoftsuccesstestcase">
+		<munit:execution>
+			<flow-ref doc:id="95b3bfc3-1d87-430d-b4a8-3de22804ff1d" doc:name="Flow-ref to getArray" name="getArray"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that - mulesoft strings exists" doc:id="77c6fafb-f0a9-4534-bfeb-2b80b298feaf" message='#["Element does not exist in array"]' expression="#[payload]" is='#[MunitTools::hasItem("mulesoft")]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="payloadcontainsIndiasuccesstestcase" doc:id="1ea70846-ff25-4c65-bce0-1e2a61bfa80d" expectedErrorDescription='"Invalid element"'>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getArray" doc:id="0cc0e55f-75c2-4542-8855-ddd602e9225d" name="getArray"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that - India string is not exist" doc:id="d46bd681-324b-43f0-8729-72bdf792452a" is='#[MunitTools::hasItem("India")]' message='#["Invalid element"]'/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_abc6cb7d_5e99_4aff_87c5_4b1ddef36716_Output_Payload = Array<"mulesoft" | "Poonam Kute" | "Tejal Lene" | "Pooja Kale">
+

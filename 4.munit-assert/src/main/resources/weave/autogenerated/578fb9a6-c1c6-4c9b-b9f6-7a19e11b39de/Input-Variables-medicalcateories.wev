@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_578fb9a6_c1c6_4c9b_b9f6_7a19e11b39de_Input_Variables_medicalcateories = Array<"obstetric" | "breastpain" | "dermatology" | "gynocology">
+
